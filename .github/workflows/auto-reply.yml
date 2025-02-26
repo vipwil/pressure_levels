@@ -14,9 +14,12 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
+          const issueBody = context.payload.issue.body;
+          const stressLevel = (issueBody.match(/⭐️{1,5}/g) || [])[0] || '⭐️';
+          
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '🎯 压力转化协议已启动！\n\n开发者将在24小时内提供解决方案原型，基础服务费¥300/场景（特殊困难可协商减免）\n\n> 当前系统状态：\n![压力熔炉](https://img.shields.io/badge/处理中-压力转化中-orange)'
+            body: `🚨 检测到${stressLevel.length}级压力事件！\n\n预计响应时效：${Math.max(6, 24 - stressLevel.length*3)}小时内`
           })
