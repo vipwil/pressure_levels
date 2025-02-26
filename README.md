@@ -13,3 +13,4 @@
 ████████████████████████ 压力转化引擎（Python）
 ███████████████░░░░░░░░░ 数据可视化（Matplotlib）
 ██████░░░░░░░░░░░░░░░░░░ 自动化部署（GitHub Actions）
+[![压力转化进度](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/vipwil/pressure_levels/main/stats.json)]()
