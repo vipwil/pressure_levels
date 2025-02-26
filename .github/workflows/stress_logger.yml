@@ -1,0 +1,20 @@
+name: Daily Stress Scan
+on:
+  schedule:
+    - cron: "30 20 * * *"  # 每晚20:30运行
+  workflow_dispatch:  # 允许手动触发
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: 压力扫描
+      run: |
+        echo "今日压力扫描报告：" >> stress_report.md
+        date >> stress_report.md
+        python src/stress_analyzer.py >> stress_report.md
+      shell: bash
+    - uses: actions/upload-artifact@v2
+      with:
+        name: daily-stress-report
+        path: stress_report.md
