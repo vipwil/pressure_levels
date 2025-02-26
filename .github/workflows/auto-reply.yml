@@ -1,0 +1,22 @@
+name: Auto Reply Service Request
+on:
+  issues:
+    types: [opened]
+    labels: ['service-request']
+
+jobs:
+  auto-comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+    - name: 添加自动回复
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '🎯 压力转化协议已启动！\n\n开发者将在24小时内提供解决方案原型，基础服务费¥300/场景（特殊困难可协商减免）\n\n> 当前系统状态：\n![压力熔炉](https://img.shields.io/badge/处理中-压力转化中-orange)'
+          })
